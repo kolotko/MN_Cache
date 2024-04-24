@@ -1,4 +1,5 @@
 ﻿using InMemory.Abstractions;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 
 namespace InMemory;
@@ -35,6 +36,8 @@ public class InMemoryCache(IHostApplicationLifetime appLifetime, ILongCalcSimula
                     await ManualCacheImplementation();
                     break;
                 case 2:
+                    InvalidParallelCacheImplementation();
+                    break;
                 case 3:
                     continue;
                 case 4:
@@ -45,7 +48,7 @@ public class InMemoryCache(IHostApplicationLifetime appLifetime, ILongCalcSimula
             }
             
         
-            await longCalcSimulationService.CalculateAsync(1);
+            // await longCalcSimulationService.CalculateAsync(1);
         }
     }
 
@@ -80,5 +83,27 @@ public class InMemoryCache(IHostApplicationLifetime appLifetime, ILongCalcSimula
             Console.Clear();
             return;
         }
+    }
+    
+    private void InvalidParallelCacheImplementation()
+    {
+        Console.WriteLine("Program działa w następujący sposób:");
+        Console.WriteLine("Program Wykonuje 50 powtórzeń i numer pętli próbuje umieścić w cache pod tym samym kluczem");
+        Console.WriteLine("Biblioteka jest oparta na kolekcji ConcurrentDictionary która jest thread safe, ale nie na insercie");
+        Console.WriteLine("Program powinien wyświetlić duplikaty liczb");
+        
+        var cache = new MemoryCache(new MemoryCacheOptions());
+        cache.Clear();
+        Parallel.ForEach(Enumerable.Range(1, 50), loopCounter =>
+        {
+            var cachedItem = cache.GetOrCreate("key", entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60);
+                return loopCounter;
+            });
+            Console.Write($"{cachedItem}");
+        });
+        
+        Console.WriteLine("");
     }
 }

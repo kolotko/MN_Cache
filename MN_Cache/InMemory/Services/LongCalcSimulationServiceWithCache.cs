@@ -7,6 +7,10 @@ public class LongCalcSimulationServiceWithCache(ILongCalcSimulationService longC
 {
     public async Task<int> CalculateAsync(int calculationSeed)
     {
-        return await memoryCache.GetOrCreateAsync(calculationSeed, _ => longCalcSimulationService.CalculateAsync(calculationSeed) );
+        return await memoryCache.GetOrCreateAsync(calculationSeed, async entry =>
+        {
+            entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10);
+            return await longCalcSimulationService.CalculateAsync(calculationSeed);
+        });
     }
 }

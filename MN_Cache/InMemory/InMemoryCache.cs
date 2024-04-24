@@ -1,4 +1,6 @@
-﻿using InMemory.Abstractions;
+﻿using System.Collections.Concurrent;
+using InMemory.Abstractions;
+using LazyCache;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Hosting;
 
@@ -39,7 +41,8 @@ public class InMemoryCache(IHostApplicationLifetime appLifetime, ILongCalcSimula
                     InvalidParallelCacheImplementation();
                     break;
                 case 3:
-                    continue;
+                    CorrectParallelCacheImplementation();
+                    break;
                 case 4:
                     return;
                 default:
@@ -90,20 +93,33 @@ public class InMemoryCache(IHostApplicationLifetime appLifetime, ILongCalcSimula
         Console.WriteLine("Program działa w następujący sposób:");
         Console.WriteLine("Program Wykonuje 50 powtórzeń i numer pętli próbuje umieścić w cache pod tym samym kluczem");
         Console.WriteLine("Biblioteka jest oparta na kolekcji ConcurrentDictionary która jest thread safe, ale nie na insercie");
-        Console.WriteLine("Program powinien wyświetlić duplikaty liczb");
+        Console.WriteLine("Program powinien wyświetlić duplikaty liczb. Zrobi to tylko przy 1 iteracji");
         
         var cache = new MemoryCache(new MemoryCacheOptions());
-        cache.Clear();
+        var counter = 0;
         Parallel.ForEach(Enumerable.Range(1, 50), loopCounter =>
         {
-            var cachedItem = cache.GetOrCreate("key", entry =>
-            {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60);
-                return loopCounter;
-            });
+            var cachedItem = cache.GetOrCreate("key", _ => Interlocked.Increment(ref counter));
             Console.Write($"{cachedItem}");
         });
         
+        Console.ReadKey();
+        Console.Clear();
+    }
+    
+    private void CorrectParallelCacheImplementation()
+    {
+        Console.WriteLine("Program działa w następujący sposób analogiczny sposób jak w 2 trybie pracy");
+        Console.WriteLine("Tym razem używa  biblioteki LazyCache która jest thread safe");
+        IAppCache cache = new CachingService();
+        var counter = 0;
+        Parallel.ForEach(Enumerable.Range(1, 50), loopCounter =>
+        {
+            var cachedItem = cache.GetOrAdd("key", entry => Interlocked.Increment(ref counter));
+            Console.Write($"{cachedItem}");
+        });
+        
+        Console.ReadKey();
         Console.WriteLine("");
     }
 }

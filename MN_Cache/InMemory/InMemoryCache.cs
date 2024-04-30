@@ -49,9 +49,6 @@ public class InMemoryCache(IHostApplicationLifetime appLifetime, ILongCalcSimula
                     Console.WriteLine("Nie poprawna wartość");
                     break;
             }
-            
-        
-            // await longCalcSimulationService.CalculateAsync(1);
         }
     }
 

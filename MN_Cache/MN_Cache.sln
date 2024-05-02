@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemory", "InMemory\InMemory.csproj", "{03A0C97D-5C1D-4386-86E1-3C7B1B246737}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InMemory", "InMemory\InMemory.csproj", "{03A0C97D-5C1D-4386-86E1-3C7B1B246737}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Distributed", "Distributed\Distributed.csproj", "{6F4646B0-970D-4C64-9550-C473EC6CB282}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distributed", "Distributed\Distributed.csproj", "{6F4646B0-970D-4C64-9550-C473EC6CB282}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResponseCaching", "ResponseCaching\ResponseCaching.csproj", "{722EF542-A255-4539-82BB-FF1D980F521F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,12 @@ Global
 		{6F4646B0-970D-4C64-9550-C473EC6CB282}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F4646B0-970D-4C64-9550-C473EC6CB282}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F4646B0-970D-4C64-9550-C473EC6CB282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{722EF542-A255-4539-82BB-FF1D980F521F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{722EF542-A255-4539-82BB-FF1D980F521F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{722EF542-A255-4539-82BB-FF1D980F521F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{722EF542-A255-4539-82BB-FF1D980F521F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

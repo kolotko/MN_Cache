@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Distributed", "Distributed\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResponseCaching", "ResponseCaching\ResponseCaching.csproj", "{722EF542-A255-4539-82BB-FF1D980F521F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutputCache", "OutputCache\OutputCache.csproj", "{6820B37B-3087-4405-947E-7A2A32344265}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{722EF542-A255-4539-82BB-FF1D980F521F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{722EF542-A255-4539-82BB-FF1D980F521F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{722EF542-A255-4539-82BB-FF1D980F521F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6820B37B-3087-4405-947E-7A2A32344265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6820B37B-3087-4405-947E-7A2A32344265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6820B37B-3087-4405-947E-7A2A32344265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6820B37B-3087-4405-947E-7A2A32344265}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
